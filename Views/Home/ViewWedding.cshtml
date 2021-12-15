@@ -1,0 +1,31 @@
+@model Wedding
+
+<div class="text-center">
+    <h2>@Model.WedderOne and @Model.WedderTwo's Wedding</h2>
+    <div class="d-flex justify-content-evenly">
+        <div class="col-6">
+            <h3>Date: @Model.Date.ToShortDateString()</h3>
+            <h3>Guests:</h3>
+            <ul>
+                @{
+                    if(Model.Guests.Count == 0)
+                    {
+                        <li>No Guests Yet</li>
+                    }
+                    else
+                    {
+                        foreach(RSVP g in Model.Guests)
+                        {
+                            <li>
+                                @g.User.FirstName @g.User.LastName
+                            </li>
+                        }
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-6">
+            <p>Google maps API goes here</p>
+        </div>
+    </div>
+</div>

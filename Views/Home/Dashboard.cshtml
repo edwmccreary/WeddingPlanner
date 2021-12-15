@@ -1,0 +1,46 @@
+@model Wedding
+@using Microsoft.AspNetCore.Http
+
+<div class="text-center">
+    <h1>Welcome to the Wedding Planner</h1>
+    <br>
+    <h3>@Context.Session.GetString("FirstName") @Context.Session.GetString("LastName")</h3>
+    <br>
+    <a href="/wedding/new" class="btn btn-primary">New Wedding</a>
+    <br>
+    <br>
+    <table class="table table-striped">
+        <tr>
+            <th>Wedding</th>
+            <th>Date</th>
+            <th>Guest(s)</th>
+            <th>Action</th>
+        </tr>
+        @{
+            foreach(Wedding w in ViewBag.AllWeddings)
+            {
+                <tr>
+                    <td><a href="/wedding/@w.WeddingId">@w.WedderOne & @w.WedderTwo</a></td>
+                    <td>@w.Date.ToShortDateString()</td>
+                    <td>@w.Guests.Count</td>
+                    <td>
+                        @{
+                            if(Context.Session.GetInt32("UserId") == w.UserId)
+                            {
+                                <a href="/wedding/delete/@w.WeddingId">DELETE</a>
+                            }
+                            else if(w.Guests.Any(g => g.UserId == Context.Session.GetInt32("UserId")))
+                            {
+                                <a href="/wedding/unrsvp/@w.WeddingId">Un-RSVP</a>
+                            }
+                            else
+                            {
+                                <a href="/wedding/rsvp/@w.WeddingId">RSVP</a>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>

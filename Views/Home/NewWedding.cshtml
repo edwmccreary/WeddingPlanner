@@ -1,0 +1,34 @@
+@model Wedding
+@using Microsoft.AspNetCore.Http
+
+<div class="text-center">
+    <h2>Plan Your Wedding</h2>
+    <br>
+    <form action="/wedding/add" method="post">
+        <div class="form-group">
+            <label>Wedder One</label>
+            <input asp-for="WedderOne" class="form-control">
+            <span asp-validation-for="WedderOne" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Wedder Two</label>
+            <input asp-for="WedderTwo" class="form-control">
+            <span asp-validation-for="WedderTwo" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Date</label>
+            <input type="date" name="Date" class="form-control">
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Wedding Address</label>
+            <input asp-for="Address" class="form-control">
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <input type="hidden" name="UserId" value="@Context.Session.GetInt32("UserId")">
+        <span asp-validation-for="UserId" class="text-danger"></span>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary">
+        </div>
+    </form>
+</div>
